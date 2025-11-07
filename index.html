@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fravega Iphone 15 </title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="images/logo-mi-marca.png" alt="Logo Mi Marca" class="logo-left">
+        <img src="images/logo-acompanante.png" alt="Logo Acompañante" class="logo-right">
+    </header>
+    
+    <div class="container">
+        <div class="form-section">
+            <h2>Completa tus datos para contactarte</h2>
+            <form id="contactForm">
+                <label for="nombre">Nombre Completo:</label>
+                <input type="text" id="nombre" required>
+                
+                <label for="celular">Celular de Contacto:</label>
+                <input type="tel" id="celular" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+                
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" required>
+                
+                <label for="codigoPostal">Código Postal:</label>
+                <input type="text" id="codigoPostal" required>
+                
+                <label for="localidad">Localidad:</label>
+                <input type="text" id="localidad" required>
+                
+                <label for="provincia">Provincia:</label>
+                <input type="text" id="provincia" required>
+                
+                <label for="pais">País:</label>
+                <input type="text" id="pais" required>
+                
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+        
+        <div class="product-section">
+            <h2>Producto Seleccionado</h2>
+            <img src="images/producto.jpg" alt="Producto" class="product-image">
+            <h3>Nombre del Producto</h3>
+            <p><strong>Valor:</strong> $XX.XXX</p>
+            <p><strong>Detalles:</strong> Resumen breve del producto, características principales, etc. Ideal para [uso]. Incluye envío estimado basado en tu dirección.</p>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Aviso: Tus datos se usan únicamente para contactarte y estimar costos de envío. No compartimos información con terceros.</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
