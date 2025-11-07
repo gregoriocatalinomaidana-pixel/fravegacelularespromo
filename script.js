@@ -1,7 +1,6 @@
 document.getElementById('contactForm').addEventListener('submit', async function(event) {
     event.preventDefault();
     
-    // Recopilar datos del formulario
     const data = {
         nombre: document.getElementById('nombre').value,
         celular: document.getElementById('celular').value,
@@ -14,20 +13,16 @@ document.getElementById('contactForm').addEventListener('submit', async function
     };
     
     try {
-        // Enviar datos a Google Sheets
-        const response = await fetch('https://script.google.com/macros/s/AKfycbxL2PJXmWO9VaBGJkkj1bjg-LmxJnroSm3kOUczFyjfq_wz1JWSLkszm5sOVlePBkQ0/exec', {  // Reemplaza con tu URL de Google Apps Script
+        const response = await fetch('https://formspree.io/f/xanawnor', {  // Reemplaza con TU URL de Formspree
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(data)
         });
         
         if (response.ok) {
-            // Redirigir a página de confirmación
             window.location.href = 'confirmation.html';
         } else {
-            alert('Error al enviar datos. Inténtalo de nuevo.');
+            alert('Error al enviar. Inténtalo de nuevo.');
         }
     } catch (error) {
         alert('Error de conexión. Verifica tu internet.');
