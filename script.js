@@ -30,6 +30,6 @@ document.getElementById('contactForm').addEventListener('submit', async function
             alert('Error al enviar. Inténtalo de nuevo.');
         }
     } catch (error) {
-        alert('Error de conexión. Verifica tu internet.');
+        alert('Error de conexión. No se que puta ocurre.');
     }
 });
