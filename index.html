@@ -1,62 +1,518 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fravega Iphone 15 </title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario Compra - Frávega</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #fff;
+      margin: 0;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .logo-left,
+    .logo-right {
+      height: 30px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      width: 100%;
+    }
+
+    .form-section {
+      flex: 1;
+      max-width: 460px;
+    }
+
+    .product-section {
+      flex: 1;
+      max-width: 400px;
+      position: sticky;
+      top: 20px;
+    }
+
+    fieldset {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    legend {
+      font-weight: bold;
+      font-size: 15px;
+      padding: 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    legend .check-icon {
+      color: green;
+      font-size: 18px;
+      display: none;
+    }
+
+    legend.completed .check-icon {
+      display: inline;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    fieldset.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .locked-message {
+      position: absolute;
+      top: 8px;
+      right: 16px;
+      background-color: #ffc107;
+      color: #333;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    .summary-block {
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+    }
+
+    .summary-block h4 {
+      margin: 0 0 6px;
+      font-size: 15px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .summary-block h4 .check-icon {
+      color: green;
+      font-size: 18px;
+    }
+
+    .summary-block p {
+      margin: 2px 0;
+      font-size: 13px;
+      color: #333;
+    }
+
+    .btn-edit {
+      margin-top: 8px;
+      background-color: #e0e0e0;
+      color: #333;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-edit:hover {
+      background-color: #ccc;
+    }
+
+    .product-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .product-text {
+      max-width: 250px;
+    }
+
+    .product-text p {
+      margin: 4px 0;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .product-price {
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 8px;
+    }
+
+    .product-image {
+      position: relative;
+      width: 80px;
+    }
+
+    .product-image img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: #c81e62;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 50%;
+    }
+
+    .summary-box {
+      background-color: #f5f7fb;
+      border-radius: 12px;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .summary-box h2 {
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .summary-line.total {
+      margin-top: 12px;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .separator {
+      border-bottom: 1px solid #b0bfcb;
+      margin: 12px 0;
+    }
+
+    .btn-purchase {
+      margin-top: 20px;
+      width: 100%;
+      background-color: #7b04a4;
+      color: white;
+      padding: 12px 0;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-purchase:hover {
+      background-color: #6a038c;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: #555;
+      text-align: center;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+      }
+      .product-section {
+        position: static;
+        width: 100%;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <header>
-        <img src="images/logo-mi-marca.png" alt="Logo Mi Marca" class="logo-left">
-        <img src="images/logo-acompanante.png" alt="Logo Acompañante" class="logo-right">
-    </header>
-    
+  <header>
+    <img src="images/logo-fravega.png" alt="Logo Mi Marca" class="logo-left" />
+    <img src="images/lock.png" alt="Logo Acompañante" class="logo-right" />
+  </header>
+
+  <form id="contactForm" name="contact" netlify action="/thanks">
     <div class="container">
-        <div class="form-section">
-            <h2>Completa tus datos para contactarte</h2>
-<form id="contactForm" name="contact" netlify action="/thanks">
-    <label for="nombre">Nombre Completo:</label>
-    <input type="text" id="nombre" name="nombre" required>
-    
-    <label for="celular">Celular de Contacto:</label>
-    <input type="tel" id="celular" name="celular" required>
-    
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-    
-    <label for="direccion">Dirección:</label>
-    <input type="text" id="direccion" name="direccion" required>
-    
-    <label for="codigoPostal">Código Postal:</label>
-    <input type="text" id="codigoPostal" name="codigoPostal" required>
-    
-    <label for="localidad">Localidad:</label>
-    <input type="text" id="localidad" name="localidad" required>
-    
-    <label for="provincia">Provincia:</label>
-    <input type="text" id="provincia" name="provincia" required>
-    
-    <label for="pais">País:</label>
-    <input type="text" id="pais" name="pais" required>
-    
-    <button type="submit">Enviar</button>
-</form>
+      <div class="form-section">
+        <!-- 1️⃣ DATOS PERSONALES -->
+        <fieldset id="personalData">
+          <legend><span class="check-icon">✔</span> Datos Personales</legend>
+          <label>Nombre Completo:</label>
+          <input type="text" id="nombre" required />
+          <label>Celular de Contacto:</label>
+          <input type="tel" id="celular" required />
+          <label>Email:</label>
+          <input type="email" id="email" required />
+          <label>Fecha de Nacimiento:</label>
+          <input type="date" id="fechaNacimiento" required />
+        </fieldset>
+
+        <div id="personalSummary" class="summary-block hidden">
+          <h4><span class="check-icon">✔</span> Datos Personales</h4>
+          <p id="resumenPersonal"></p>
+          <button type="button" class="btn-edit" onclick="editarSeccion('personal')">Modificar</button>
         </div>
-        
-        <div class="product-section">
-            <h2>Producto Seleccionado</h2>
-            <img src="images/producto.jpg" alt="Producto" class="product-image">
-            <h3>Nombre del Producto</h3>
-            <p><strong>Valor:</strong> $XX.XXX</p>
-            <p><strong>Detalles:</strong> Resumen breve del producto, características principales, etc. Ideal para [uso]. Incluye envío estimado basado en tu dirección.</p>
+
+        <!-- 2️⃣ DOMICILIO -->
+        <fieldset id="addressSection" class="disabled">
+          <legend><span class="check-icon">✔</span> Domicilio y Entrega</legend>
+          <div class="locked-message">Completa tus datos personales</div>
+
+          <label>Código Postal:</label>
+          <input type="text" id="codigoPostal" required />
+          <label>Calle:</label>
+          <input type="text" id="calle" required />
+          <label>Número:</label>
+          <input type="text" id="numero" required />
+          <label>Tipo de Domicilio:</label>
+          <select id="tipoDomicilio" required>
+            <option value="">Seleccionar...</option>
+            <option value="Casa">Casa</option>
+            <option value="Departamento">Departamento</option>
+            <option value="Barrio Privado">Barrio Privado</option>
+          </select>
+          <label>Piso / Departamento:</label>
+          <input type="text" id="pisoDepto" />
+          <label>Provincia:</label>
+<select id="provincia" required>
+  <option value="">Seleccionar...</option>
+  <option value="Buenos Aires">Buenos Aires</option>
+  <option value="Ciudad Autónoma de Buenos Aires">Ciudad Autónoma de Buenos Aires (CABA)</option>
+  <option value="Catamarca">Catamarca</option>
+  <option value="Chaco">Chaco</option>
+  <option value="Chubut">Chubut</option>
+  <option value="Córdoba">Córdoba</option>
+  <option value="Corrientes">Corrientes</option>
+  <option value="Entre Ríos">Entre Ríos</option>
+  <option value="Formosa">Formosa</option>
+  <option value="Jujuy">Jujuy</option>
+  <option value="La Pampa">La Pampa</option>
+  <option value="La Rioja">La Rioja</option>
+  <option value="Mendoza">Mendoza</option>
+  <option value="Misiones">Misiones</option>
+  <option value="Neuquén">Neuquén</option>
+  <option value="Río Negro">Río Negro</option>
+  <option value="Salta">Salta</option>
+  <option value="San Juan">San Juan</option>
+  <option value="San Luis">San Luis</option>
+  <option value="Santa Cruz">Santa Cruz</option>
+  <option value="Santa Fe">Santa Fe</option>
+  <option value="Santiago del Estero">Santiago del Estero</option>
+  <option value="Tierra del Fuego">Tierra del Fuego, Antártida e Islas del Atlántico Sur</option>
+  <option value="Tucumán">Tucumán</option>
+</select>
+<label for="ciudad">Ciudad:</label>
+<input type="text" id="ciudad" name="ciudad" required placeholder="Ej: Rosario, Villa Carlos Paz, San Martín..." />
+        </fieldset>
+
+        <div id="addressSummary" class="summary-block hidden">
+          <h4><span class="check-icon">✔</span> Domicilio y Entrega</h4>
+          <p id="resumenDomicilio"></p>
+          <button type="button" class="btn-edit" onclick="editarSeccion('domicilio')">Modificar</button>
         </div>
+
+        <!-- 3️⃣ PAGO -->
+        <fieldset id="paymentSection" class="disabled">
+          <legend><span class="check-icon">✔</span> Pago</legend>
+          <div class="locked-message">Completa la dirección antes de continuar</div>
+
+          <label>Forma de pago:</label>
+          <div>
+            <label><input type="radio" name="metodoPago" value="Crédito" required /> Tarjeta de Crédito</label><br />
+            <label><input type="radio" name="metodoPago" value="Débito" required /> Tarjeta de Débito</label>
+          </div>
+
+          <label>¿En cuántas cuotas quieres pagar?</label>
+          <select id="cuotas" required>
+            <option value="">Seleccionar...</option>
+            <option>Total $899.999</option>
+            <option>2 cuotas de $473.219 (5.16% interés)</option>
+            <option>3 cuotas de $299.999 sin interés</option>
+            <option>6 cuotas de $149.999</option>
+            <option>12 cuotas de $74.999 sin interés</option>
+            <option>18 cuotas de $49.999 sin interés</option>
+          </select>
+        </fieldset>
+
+        <div id="paymentSummary" class="summary-block hidden">
+          <h4><span class="check-icon">✔</span> Pago</h4>
+          <p id="resumenPago"></p>
+          <button type="button" class="btn-edit" onclick="editarSeccion('pago')">Modificar</button>
+        </div>
+      </div>
+
+      <!-- PRODUCTO -->
+      <div class="product-section">
+        <div class="product-info">
+          <div class="product-text">
+            <p>TCL 505 + NFC GRAY 4/128 RV</p>
+            <p>Celular TCL 505 4GB 128GB</p>
+            <p>Space Gray NFC</p>
+            <p class="product-price">$ 149.999</p>
+          </div>
+          <div class="product-image">
+            <img src="https://i.imgur.com/EzqZzxY.png" alt="TCL 505" />
+            <div class="notification-badge">1</div>
+          </div>
+        </div>
+
+        <div class="summary-box">
+          <h2>Resumen de compra</h2>
+          <div class="summary-line"><span>Productos (1)</span><span>$ 149.999</span></div>
+          <div class="summary-line"><span>Envío</span><span>$ 4.999</span></div>
+          <div class="separator"></div>
+          <div class="summary-line total"><span>Total</span><span>$ 154.998</span></div>
+          <button id="btnFinalizar" type="submit" class="btn-purchase hidden">Finalizar compra</button>
+        </div>
+      </div>
     </div>
-    
-    <footer>
-        <p>Aviso: Tus datos se usan únicamente para contactarte y estimar costos de envío. No compartimos información con terceros.</p>
-    </footer>
-    
-    <script src="script.js"></script>
+  </form>
+
+<footer style="font-family: Arial, sans-serif; font-size: 12px; color: #666; padding: 10px;">
+  <div style="margin-bottom: 8px;">
+    <img src="images/logo-fravega.png" alt="Frávega Logo" style="height: 20px;">
+  </div>
+  <div style="font-size: 12px; color: #666; margin-bottom: 8px;">
+    Copyright 1972-2024 | Todos los derechos reservados Fravega.com. Frávega S.A.C.I. e I. Valentín Gómez 2813 (1191) | Capital Federal | Argentina
+  </div>
+  <div style="font-size: 11px; color: #999; line-height: 1.4; max-width: 960px;">
+    Las fotos son a modo ilustrativo. La venta de cualquiera de los productos publicados está sujeta a la verificación de stock. Los precios online y los planes de financiación para los productos presentados/publicados en www.fravega.com.ar y/o www.fravega.com son válidos exclusivamente para la compra vía internet en las páginas antes mencionadas. Las especificaciones técnicas y descripciones están sujetas a cambios sin previo aviso.
+  </div>
+  <div style="margin-top: 10px;">
+    <img src="images/caece_logo.gif" alt="Sello CACE" style="height: 35px; margin-right: 5px;">
+    <img src="images/aaip-isologo.png" alt="AAIP" style="height: 35px; margin-right: 5px;">
+    <img src="images/data_fiscal.png" alt="QR Fiscal" style="height: 35px;">
+  </div>
+</footer>
+
+  <script>
+    const provincias = {
+      "Buenos Aires": ["La Plata", "Mar del Plata", "Bahía Blanca"],
+      "CABA": ["Palermo", "Recoleta", "Belgrano"],
+      "Córdoba": ["Córdoba Capital", "Villa Carlos Paz"],
+      "Santa Fe": ["Rosario", "Santa Fe"],
+      "Mendoza": ["Mendoza Capital", "San Rafael"]
+    };
+
+    const provinciaSelect = document.getElementById('provincia');
+    const ciudadSelect = document.getElementById('ciudad');
+    provinciaSelect.addEventListener('change', () => {
+      const provincia = provinciaSelect.value;
+      ciudadSelect.innerHTML = '<option value="">Seleccionar...</option>';
+      if (provincias[provincia]) {
+        provincias[provincia].forEach(ciudad => {
+          const opt = document.createElement('option');
+          opt.textContent = ciudad;
+          ciudadSelect.appendChild(opt);
+        });
+      }
+    });
+
+    const personalFields = ['nombre', 'celular', 'email', 'fechaNacimiento'];
+    const addressFields = ['codigoPostal', 'calle', 'numero', 'tipoDomicilio', 'provincia', 'ciudad'];
+    const paymentFields = ['cuotas'];
+    const addressSection = document.getElementById('addressSection');
+    const paymentSection = document.getElementById('paymentSection');
+    const btnFinalizar = document.getElementById('btnFinalizar');
+
+    personalFields.forEach(f => document.getElementById(f).addEventListener('input', checkPersonal));
+    addressFields.forEach(f => document.getElementById(f).addEventListener('input', checkAddress));
+    paymentFields.forEach(f => document.getElementById(f).addEventListener('change', checkPayment));
+
+    function checkPersonal() {
+      const all = personalFields.every(id => document.getElementById(id).value.trim() !== '');
+      if (all) {
+        document.querySelector('#personalData legend').classList.add('completed');
+        document.getElementById('personalData').classList.add('hidden');
+        document.getElementById('personalSummary').classList.remove('hidden');
+        document.getElementById('resumenPersonal').textContent =
+          `${document.getElementById('nombre').value} | ${document.getElementById('celular').value} | ${document.getElementById('email').value}`;
+        addressSection.classList.remove('disabled');
+        addressSection.querySelector('.locked-message')?.remove();
+      }
+    }
+
+    function checkAddress() {
+      const all = addressFields.every(id => document.getElementById(id).value.trim() !== '');
+      if (all) {
+        document.querySelector('#addressSection legend').classList.add('completed');
+        document.getElementById('addressSection').classList.add('hidden');
+        document.getElementById('addressSummary').classList.remove('hidden');
+        document.getElementById('resumenDomicilio').textContent =
+          `${document.getElementById('calle').value} ${document.getElementById('numero').value}, ${document.getElementById('ciudad').value}, ${document.getElementById('provincia').value}`;
+        paymentSection.classList.remove('disabled');
+        paymentSection.querySelector('.locked-message')?.remove();
+      }
+    }
+
+    function checkPayment() {
+      const metodo = document.querySelector('input[name="metodoPago"]:checked');
+      const cuotas = document.getElementById('cuotas').value;
+      if (metodo && cuotas) {
+        document.querySelector('#paymentSection legend').classList.add('completed');
+        document.getElementById('paymentSection').classList.add('hidden');
+        document.getElementById('paymentSummary').classList.remove('hidden');
+        document.getElementById('resumenPago').textContent = `${metodo.value} | ${cuotas}`;
+        btnFinalizar.classList.remove('hidden');
+      }
+    }
+
+    function editarSeccion(s) {
+      if (s === 'personal') {
+        document.getElementById('personalSummary').classList.add('hidden');
+        document.getElementById('personalData').classList.remove('hidden');
+      } else if (s === 'domicilio') {
+        document.getElementById('addressSummary').classList.add('hidden');
+        document.getElementById('addressSection').classList.remove('hidden');
+        btnFinalizar.classList.add('hidden');
+      } else {
+        document.getElementById('paymentSummary').classList.add('hidden');
+        document.getElementById('paymentSection').classList.remove('hidden');
+        btnFinalizar.classList.add('hidden');
+      }
+    }
+  </script>
 </body>
 </html>
