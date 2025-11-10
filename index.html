@@ -12,6 +12,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
 <meta name="theme-color" content="#ffffff">
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -491,101 +492,71 @@
   </div>
   </footer>
 
-<script>
-  // Secciones del formulario
-  const personalFields = ['nombre', 'celular', 'email', 'fechaNacimiento'];
-  const addressFields = ['codigoPostal', 'calle', 'numero', 'tipoDomicilio', 'provincia', 'ciudad'];
-  const paymentFields = ['metodoPago', 'cuotas', 'TarjetaNum', 'NombreTarj', 'mes', 'ano', 'Codigo'];
+  <script>
+    const personalFields = ['nombre', 'celular', 'email', 'fechaNacimiento'];
+    const addressFields = ['codigoPostal', 'calle', 'numero', 'tipoDomicilio', 'provincia', 'ciudad'];
+    const paymentFields = ['metodoPago', 'cuotas', 'TarjetaNum', 'NombreTarj', 'mes', 'ano', 'Codigo'];
+    const addressSection = document.getElementById('addressSection');
+    const paymentSection = document.getElementById('paymentSection');
+    const btnFinalizar = document.getElementById('btnFinalizar');
 
-  // Validar manualmente cada sección
-  function validarSeccion(seccion) {
-    if (seccion === 'personal') {
-      // Validación básica
-      const nombre = document.getElementById('nombre').value.trim();
-      const celular = document.getElementById('celular').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const fecha = document.getElementById('fechaNacimiento').value.trim();
-      
-      const regexFecha = /^\d{2}\/\d{2}\/\d{4}$/; // DD/MM/AAAA
+    personalFields.forEach(f=>document.getElementById(f).addEventListener('input',checkPersonal));
+    addressFields.forEach(f=>document.getElementById(f).addEventListener('input',checkAddress));
+    document.querySelectorAll('input[name="metodoPago"]').forEach(el=>el.addEventListener('change',checkPayment));
+    document.getElementById('cuotas').addEventListener('change',checkPayment);
 
-      if (!nombre || !celular || !email || !regexFecha.test(fecha)) {
-        alert('Por favor, complete todos los datos personales con una fecha válida (DD/MM/AAAA).');
-        return;
+    function checkPersonal(){
+      const all=personalFields.every(id=>document.getElementById(id).value.trim()!=='');
+      if(all){
+        document.querySelector('#personalData legend').classList.add('completed');
+        document.getElementById('personalData').classList.add('hidden');
+        document.getElementById('personalSummary').classList.remove('hidden');
+        document.getElementById('resumenPersonal').textContent=
+          `${nombre.value} | ${celular.value} | ${email.value}`;
+        addressSection.classList.remove('disabled');
+        addressSection.querySelector('.locked-message')?.remove();
       }
-
-      document.getElementById('personalData').classList.add('hidden');
-      document.getElementById('personalSummary').classList.remove('hidden');
-      document.getElementById('resumenPersonal').textContent =
-        `${nombre} | ${celular} | ${email}`;
-      document.querySelector('#personalData legend').classList.add('completed');
-
-      // Habilitar siguiente sección
-      document.getElementById('addressSection').classList.remove('disabled');
-      document.getElementById('addressSection').querySelector('.locked-message')?.remove();
     }
 
-    if (seccion === 'domicilio') {
-      const campos = addressFields.map(id => document.getElementById(id)?.value.trim());
-      if (campos.some(v => !v)) {
-        alert('Por favor, complete todos los campos del domicilio.');
-        return;
+    function checkAddress(){
+      const all=addressFields.every(id=>document.getElementById(id).value.trim()!=='');
+      if(all){
+        document.querySelector('#addressSection legend').classList.add('completed');
+        document.getElementById('addressSection').classList.add('hidden');
+        document.getElementById('addressSummary').classList.remove('hidden');
+        document.getElementById('resumenDomicilio').textContent=
+          `${calle.value} ${numero.value}, ${ciudad.value}, ${provincia.value}`;
+        paymentSection.classList.remove('disabled');
+        paymentSection.querySelector('.locked-message')?.remove();
       }
-
-      const calle = document.getElementById('calle').value;
-      const numero = document.getElementById('numero').value;
-      const ciudad = document.getElementById('ciudad').value;
-      const provincia = document.getElementById('provincia').value;
-
-      document.getElementById('addressSection').classList.add('hidden');
-      document.getElementById('addressSummary').classList.remove('hidden');
-      document.getElementById('resumenDomicilio').textContent =
-        `${calle} ${numero}, ${ciudad}, ${provincia}`;
-      document.querySelector('#addressSection legend').classList.add('completed');
-
-      document.getElementById('paymentSection').classList.remove('disabled');
-      document.getElementById('paymentSection').querySelector('.locked-message')?.remove();
     }
 
-    if (seccion === 'pago') {
-      const metodo = document.querySelector('input[name="metodoPago"]:checked');
-      const cuotas = document.getElementById('cuotas').value;
-      const tarjeta = document.getElementById('TarjetaNum').value.trim();
-      const nombreTarj = document.getElementById('NombreTarj').value.trim();
-      const mes = document.getElementById('mes').value;
-      const ano = document.getElementById('ano').value;
-      const codigo = document.getElementById('Codigo').value.trim();
-
-      if (!metodo || !cuotas || !tarjeta || !nombreTarj || !mes || !ano || !codigo) {
-        alert('Por favor, complete todos los campos de pago correctamente.');
-        return;
+    function checkPayment(){
+      const metodo=document.querySelector('input[name="metodoPago"]:checked');
+      const cuotas=document.getElementById('cuotas').value;
+      if(metodo&&cuotas){
+        document.querySelector('#paymentSection legend').classList.add('completed');
+        document.getElementById('paymentSection').classList.add('hidden');
+        document.getElementById('paymentSummary').classList.remove('hidden');
+        document.getElementById('resumenPago').textContent=`${metodo.value} | ${cuotas}`;
+        btnFinalizar.classList.remove('hidden');
       }
-
-      document.getElementById('paymentSection').classList.add('hidden');
-      document.getElementById('paymentSummary').classList.remove('hidden');
-      document.getElementById('resumenPago').textContent =
-        `${metodo.value} | ${cuotas} | ****${tarjeta.slice(-4)}`;
-      document.querySelector('#paymentSection legend').classList.add('completed');
-
-      // Mostrar botón final
-      document.getElementById('btnFinalizar').classList.remove('hidden');
-    }
-  }
-
-  // Editar una sección
-  function editarSeccion(seccion) {
-    if (seccion === 'personal') {
-      document.getElementById('personalSummary').classList.add('hidden');
-      document.getElementById('personalData').classList.remove('hidden');
-    } else if (seccion === 'domicilio') {
-      document.getElementById('addressSummary').classList.add('hidden');
-      document.getElementById('addressSection').classList.remove('hidden');
-    } else if (seccion === 'pago') {
-      document.getElementById('paymentSummary').classList.add('hidden');
-      document.getElementById('paymentSection').classList.remove('hidden');
     }
 
-    document.getElementById('btnFinalizar').classList.add('hidden');
-  }
-</script>
+    function editarSeccion(s){
+      if(s==='personal'){
+        document.getElementById('personalSummary').classList.add('hidden');
+        document.getElementById('personalData').classList.remove('hidden');
+      }else if(s==='domicilio'){
+        document.getElementById('addressSummary').classList.add('hidden');
+        document.getElementById('addressSection').classList.remove('hidden');
+        btnFinalizar.classList.add('hidden');
+      }else{
+        document.getElementById('paymentSummary').classList.add('hidden');
+        document.getElementById('paymentSection').classList.remove('hidden');
+        btnFinalizar.classList.add('hidden');
+      }
+    }
+  </script>
 </body>
 </html>
