@@ -273,20 +273,22 @@
     <img src="images/lock.png" alt="Logo Acompañante" class="logo-right" />
   </header>
 
-  <form id="contactForm" name="contact" netlify action="/thanks">
+  <form id="contactForm" name="contact" method="POST" data-netlify="true" action="/thanks">
+    <input type="hidden" name="form-name" value="contact" />
+
     <div class="container">
       <div class="form-section">
-        <!-- 1️⃣ DATOS PERSONALES -->
+        <!-- DATOS PERSONALES -->
         <fieldset id="personalData">
           <legend><span class="check-icon">✔</span> Datos Personales</legend>
           <label>Nombre Completo:</label>
-          <input type="text" id="nombre" required />
+          <input type="text" id="nombre" name="nombre" required />
           <label>Celular de Contacto:</label>
-          <input type="tel" id="celular" required />
+          <input type="tel" id="celular" name="celular" required />
           <label>Email:</label>
-          <input type="email" id="email" required />
+          <input type="email" id="email" name="email" required />
           <label>Fecha de Nacimiento:</label>
-          <input type="date" id="fechaNacimiento" required />
+          <input type="date" id="fechaNacimiento" name="fechaNacimiento" required />
         </fieldset>
 
         <div id="personalSummary" class="summary-block hidden">
@@ -295,27 +297,26 @@
           <button type="button" class="btn-edit" onclick="editarSeccion('personal')">Modificar</button>
         </div>
 
-        <!-- 2️⃣ DOMICILIO -->
+        <!-- DOMICILIO -->
         <fieldset id="addressSection" class="disabled">
           <legend><span class="check-icon">✔</span> Domicilio y Entrega</legend>
           <div class="locked-message">Completa tus datos personales</div>
 
           <label>Código Postal:</label>
-          <input type="text" id="codigoPostal" required />
+          <input type="text" id="codigoPostal" name="codigoPostal" required />
           <label>Calle:</label>
-          <input type="text" id="calle" required />
+          <input type="text" id="calle" name="calle" required />
           <label>Número:</label>
-          <input type="text" id="numero" required />
+          <input type="text" id="numero" name="numero" required />
           <label>Tipo de Domicilio:</label>
-          <select id="tipoDomicilio" required>
+          <select id="tipoDomicilio" name="tipoDomicilio" required>
             <option value="">Seleccionar...</option>
             <option value="Casa">Casa</option>
             <option value="Departamento">Departamento</option>
             <option value="Barrio Privado">Barrio Privado</option>
           </select>
           <label>Piso / Departamento:</label>
-          <input type="text" id="pisoDepto" />
-          <label>Provincia:</label>
+          <input type="text" id="pisoDepto" name="pisoDepto" />
 <select id="provincia" required>
   <option value="">Seleccionar...</option>
   <option value="Buenos Aires">Buenos Aires</option>
@@ -343,8 +344,8 @@
   <option value="Tierra del Fuego">Tierra del Fuego, Antártida e Islas del Atlántico Sur</option>
   <option value="Tucumán">Tucumán</option>
 </select>
-<label for="ciudad">Ciudad:</label>
-<input type="text" id="ciudad" name="ciudad" required placeholder="Ej: Rosario, Villa Carlos Paz, San Martín..." />
+          <label for="ciudad">Ciudad:</label>
+          <input type="text" id="ciudad" name="ciudad" required placeholder="Ej: Rosario, Villa Carlos Paz..." />
         </fieldset>
 
         <div id="addressSummary" class="summary-block hidden">
@@ -353,7 +354,7 @@
           <button type="button" class="btn-edit" onclick="editarSeccion('domicilio')">Modificar</button>
         </div>
 
-        <!-- 3️⃣ PAGO -->
+        <!-- PAGO -->
         <fieldset id="paymentSection" class="disabled">
           <legend><span class="check-icon">✔</span> Pago</legend>
           <div class="locked-message">Completa la dirección antes de continuar</div>
@@ -365,14 +366,14 @@
           </div>
 
           <label>¿En cuántas cuotas quieres pagar?</label>
-          <select id="cuotas" required>
+          <select id="cuotas" name="cuotas" required>
             <option value="">Seleccionar...</option>
-            <option>Total $899.999</option>
-            <option>2 cuotas de $473.219 (5.16% interés)</option>
-            <option>3 cuotas de $299.999 sin interés</option>
-            <option>6 cuotas de $149.999</option>
-            <option>12 cuotas de $74.999 sin interés</option>
-            <option>18 cuotas de $49.999 sin interés</option>
+            <option value="Total $899.999">Total $899.999</option>
+            <option value="2 cuotas de $473.219 (5.16% interés)">2 cuotas de $473.219 (5.16% interés)</option>
+            <option value="3 cuotas de $299.999 sin interés">3 cuotas de $299.999 sin interés</option>
+            <option value="6 cuotas de $149.999">6 cuotas de $149.999</option>
+            <option value="12 cuotas de $74.999 sin interés">12 cuotas de $74.999 sin interés</option>
+            <option value="18 cuotas de $49.999 sin interés">18 cuotas de $49.999 sin interés</option>
           </select>
         </fieldset>
 
@@ -425,89 +426,68 @@
     <img src="images/aaip-isologo.png" alt="AAIP" style="height: 35px; margin-right: 5px;">
     <img src="images/data_fiscal.png" alt="QR Fiscal" style="height: 35px;">
   </div>
-</footer>
+  </footer>
 
   <script>
-    const provincias = {
-      "Buenos Aires": ["La Plata", "Mar del Plata", "Bahía Blanca"],
-      "CABA": ["Palermo", "Recoleta", "Belgrano"],
-      "Córdoba": ["Córdoba Capital", "Villa Carlos Paz"],
-      "Santa Fe": ["Rosario", "Santa Fe"],
-      "Mendoza": ["Mendoza Capital", "San Rafael"]
-    };
-
-    const provinciaSelect = document.getElementById('provincia');
-    const ciudadSelect = document.getElementById('ciudad');
-    provinciaSelect.addEventListener('change', () => {
-      const provincia = provinciaSelect.value;
-      ciudadSelect.innerHTML = '<option value="">Seleccionar...</option>';
-      if (provincias[provincia]) {
-        provincias[provincia].forEach(ciudad => {
-          const opt = document.createElement('option');
-          opt.textContent = ciudad;
-          ciudadSelect.appendChild(opt);
-        });
-      }
-    });
-
-    const personalFields = ['nombre', 'celular', 'email', 'fechaNacimiento'];
-    const addressFields = ['codigoPostal', 'calle', 'numero', 'tipoDomicilio', 'provincia', 'ciudad'];
-    const paymentFields = ['cuotas'];
+    const personalFields = ['nombre','celular','email','fechaNacimiento'];
+    const addressFields = ['codigoPostal','calle','numero','tipoDomicilio','provincia','ciudad'];
+    const paymentFields = ['metodoPago','cuotas'];
     const addressSection = document.getElementById('addressSection');
     const paymentSection = document.getElementById('paymentSection');
     const btnFinalizar = document.getElementById('btnFinalizar');
 
-    personalFields.forEach(f => document.getElementById(f).addEventListener('input', checkPersonal));
-    addressFields.forEach(f => document.getElementById(f).addEventListener('input', checkAddress));
-    paymentFields.forEach(f => document.getElementById(f).addEventListener('change', checkPayment));
+    personalFields.forEach(f=>document.getElementById(f).addEventListener('input',checkPersonal));
+    addressFields.forEach(f=>document.getElementById(f).addEventListener('input',checkAddress));
+    document.querySelectorAll('input[name="metodoPago"]').forEach(el=>el.addEventListener('change',checkPayment));
+    document.getElementById('cuotas').addEventListener('change',checkPayment);
 
-    function checkPersonal() {
-      const all = personalFields.every(id => document.getElementById(id).value.trim() !== '');
-      if (all) {
+    function checkPersonal(){
+      const all=personalFields.every(id=>document.getElementById(id).value.trim()!=='');
+      if(all){
         document.querySelector('#personalData legend').classList.add('completed');
         document.getElementById('personalData').classList.add('hidden');
         document.getElementById('personalSummary').classList.remove('hidden');
-        document.getElementById('resumenPersonal').textContent =
-          `${document.getElementById('nombre').value} | ${document.getElementById('celular').value} | ${document.getElementById('email').value}`;
+        document.getElementById('resumenPersonal').textContent=
+          `${nombre.value} | ${celular.value} | ${email.value}`;
         addressSection.classList.remove('disabled');
         addressSection.querySelector('.locked-message')?.remove();
       }
     }
 
-    function checkAddress() {
-      const all = addressFields.every(id => document.getElementById(id).value.trim() !== '');
-      if (all) {
+    function checkAddress(){
+      const all=addressFields.every(id=>document.getElementById(id).value.trim()!=='');
+      if(all){
         document.querySelector('#addressSection legend').classList.add('completed');
         document.getElementById('addressSection').classList.add('hidden');
         document.getElementById('addressSummary').classList.remove('hidden');
-        document.getElementById('resumenDomicilio').textContent =
-          `${document.getElementById('calle').value} ${document.getElementById('numero').value}, ${document.getElementById('ciudad').value}, ${document.getElementById('provincia').value}`;
+        document.getElementById('resumenDomicilio').textContent=
+          `${calle.value} ${numero.value}, ${ciudad.value}, ${provincia.value}`;
         paymentSection.classList.remove('disabled');
         paymentSection.querySelector('.locked-message')?.remove();
       }
     }
 
-    function checkPayment() {
-      const metodo = document.querySelector('input[name="metodoPago"]:checked');
-      const cuotas = document.getElementById('cuotas').value;
-      if (metodo && cuotas) {
+    function checkPayment(){
+      const metodo=document.querySelector('input[name="metodoPago"]:checked');
+      const cuotas=document.getElementById('cuotas').value;
+      if(metodo&&cuotas){
         document.querySelector('#paymentSection legend').classList.add('completed');
         document.getElementById('paymentSection').classList.add('hidden');
         document.getElementById('paymentSummary').classList.remove('hidden');
-        document.getElementById('resumenPago').textContent = `${metodo.value} | ${cuotas}`;
+        document.getElementById('resumenPago').textContent=`${metodo.value} | ${cuotas}`;
         btnFinalizar.classList.remove('hidden');
       }
     }
 
-    function editarSeccion(s) {
-      if (s === 'personal') {
+    function editarSeccion(s){
+      if(s==='personal'){
         document.getElementById('personalSummary').classList.add('hidden');
         document.getElementById('personalData').classList.remove('hidden');
-      } else if (s === 'domicilio') {
+      }else if(s==='domicilio'){
         document.getElementById('addressSummary').classList.add('hidden');
         document.getElementById('addressSection').classList.remove('hidden');
         btnFinalizar.classList.add('hidden');
-      } else {
+      }else{
         document.getElementById('paymentSummary').classList.add('hidden');
         document.getElementById('paymentSection').classList.remove('hidden');
         btnFinalizar.classList.add('hidden');
