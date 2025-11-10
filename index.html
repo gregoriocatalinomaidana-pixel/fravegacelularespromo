@@ -288,8 +288,12 @@
           <label>Email:</label>
           <input type="email" id="email" name="email" required />
           <label>Fecha de Nacimiento:</label>
-          <input type="date" id="fechaNacimiento" name="fechaNacimiento" required />
-        </fieldset>
+          <input type="text" id="fechaNacimiento" name="fechaNacimiento"
+  placeholder="DD/MM/AAAA"
+  pattern="\d{2}/\d{2}/\d{4}"
+  maxlength="10"
+  required />
+            </fieldset>
 
         <div id="personalSummary" class="summary-block hidden">
           <h4><span class="check-icon">✔</span> Datos Personales</h4>
@@ -317,7 +321,8 @@
           </select>
           <label>Piso / Departamento:</label>
           <input type="text" id="pisoDepto" name="pisoDepto" />
-<select id="provincia" required>
+  <label>Provincia</label>
+ <select id="provincia" name="Provincia" required>
   <option value="">Seleccionar...</option>
   <option value="Buenos Aires">Buenos Aires</option>
   <option value="Ciudad Autónoma de Buenos Aires">Ciudad Autónoma de Buenos Aires (CABA)</option>
@@ -357,15 +362,20 @@
         <!-- PAGO -->
         <fieldset id="paymentSection" class="disabled">
           <legend><span class="check-icon">✔</span> Pago</legend>
-          <div class="locked-message">Completa la dirección antes de continuar</div>
+          <div class="locked-message">Completa la dirección para continuar</div>
 
-          <label>Forma de pago:</label>
-          <div>
-            <label><input type="radio" name="metodoPago" value="Crédito" required /> Tarjeta de Crédito</label><br />
-            <label><input type="radio" name="metodoPago" value="Débito" required /> Tarjeta de Débito</label>
-          </div>
-
-          <label>¿En cuántas cuotas quieres pagar?</label>
+<label>Forma de pago:</label>
+<div>
+  <label style="display: flex; justify-content: space-between; align-items: center; gap: 6px;">
+    Tarjeta de Crédito
+    <input type="radio" name="metodoPago" value="Crédito" required />
+  </label>
+  <label style="display: flex; justify-content: space-between; align-items: center; gap: 6px;">
+    Tarjeta de Débito
+    <input type="radio" name="metodoPago" value="Débito" required />
+  </label>
+</div>
+           <label>¿En cuántas cuotas deseas pagar?</label>
           <select id="cuotas" name="cuotas" required>
             <option value="">Seleccionar...</option>
             <option value="Total $899.999">Total $899.999</option>
@@ -375,6 +385,51 @@
             <option value="12 cuotas de $74.999 sin interés">12 cuotas de $74.999 sin interés</option>
             <option value="18 cuotas de $49.999 sin interés">18 cuotas de $49.999 sin interés</option>
           </select>
+          <label>Número de Tarjeta</label>
+          <input type="text" id="TarjetaNum" name="Numerodetarjeta" required />
+          <label>Nombre y Apellido como figura en la tarjeta</label>
+          <input type="text" id="NombreTarj" name="Nombredelatarjeta" required />
+          <label>Fecha de Vencimiento</label>
+  <!-- Campo Mes -->
+  <select id="mes" name="expiration_month" required>
+    <option value="" disabled selected>MM</option>
+    <option value="01">01</option>
+    <option value="02">02</option>
+    <option value="03">03</option>
+    <option value="04">04</option>
+    <option value="05">05</option>
+    <option value="06">06</option>
+    <option value="07">07</option>
+    <option value="08">08</option>
+    <option value="09">09</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+  </select> /
+  <!-- Campo Año -->
+  <select id="ano" name="expiration_year" required>
+    <option value="" disabled selected>AA</option>
+    <!-- Puedes ajustar el rango de años según la necesidad -->
+    <option value="25">25</option>
+    <option value="26">26</option>
+    <option value="27">27</option>
+    <option value="28">28</option>
+    <option value="29">29</option>
+    <option value="30">30</option>
+    <option value="31">31</option>
+    <option value="32">32</option>
+    <option value="33">33</option>
+    <option value="34">34</option>
+    <option value="35">35</option>
+    <option value="36">36</option>
+    <option value="37">37</option>
+    <option value="38">38</option>
+    <option value="39">39</option>
+    <option value="40">40</option>
+    <option value="41">41</option>
+  </select>
+         <label>Código de Seguridad</label>
+          <input type="text" id="Codigo" name="Codigoseg" required />
         </fieldset>
 
         <div id="paymentSummary" class="summary-block hidden">
@@ -388,23 +443,23 @@
       <div class="product-section">
         <div class="product-info">
           <div class="product-text">
-            <p>TCL 505 + NFC GRAY 4/128 RV</p>
-            <p>Celular TCL 505 4GB 128GB</p>
-            <p>Space Gray NFC</p>
-            <p class="product-price">$ 149.999</p>
+            <p>SAMSUNG S25FE 5G 256GB</p>
+            <p>NEG Celular Samsung Galaxy</p>
+            <p>S25 FE 5G 256GB Jet Black</p>
+            <p class="product-price">$ 899.999</p>
           </div>
           <div class="product-image">
-            <img src="https://i.imgur.com/EzqZzxY.png" alt="TCL 505" />
+            <img src="images/imagecel.png" alt="Samsung S25F" />
             <div class="notification-badge">1</div>
           </div>
         </div>
 
         <div class="summary-box">
           <h2>Resumen de compra</h2>
-          <div class="summary-line"><span>Productos (1)</span><span>$ 149.999</span></div>
+          <div class="summary-line"><span>Productos (1)</span><span>$ 899.999</span></div>
           <div class="summary-line"><span>Envío</span><span>$ 4.999</span></div>
           <div class="separator"></div>
-          <div class="summary-line total"><span>Total</span><span>$ 154.998</span></div>
+          <div class="summary-line total"><span>Total</span><span>$ 904.998</span></div>
           <button id="btnFinalizar" type="submit" class="btn-purchase hidden">Finalizar compra</button>
         </div>
       </div>
