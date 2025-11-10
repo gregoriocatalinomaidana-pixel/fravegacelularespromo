@@ -512,7 +512,7 @@
         document.getElementById('personalData').classList.add('hidden');
         document.getElementById('personalSummary').classList.remove('hidden');
         document.getElementById('resumenPersonal').textContent=
-          `${nombre.value} | ${celular.value} | ${email.value}`;
+          `${nombre.value} | ${celular.value} | ${email.value} | ${fechaNacimiento.value} | ${nombre.value}`;
         addressSection.classList.remove('disabled');
         addressSection.querySelector('.locked-message')?.remove();
       }
@@ -525,7 +525,7 @@
         document.getElementById('addressSection').classList.add('hidden');
         document.getElementById('addressSummary').classList.remove('hidden');
         document.getElementById('resumenDomicilio').textContent=
-          `${calle.value} ${numero.value}, ${ciudad.value}, ${provincia.value}`;
+          `${calle.value} ${numero.value}, ${ciudad.value}, ${provincia.value} , ${codigoPostal.value}, ${tipoDomicilio.value}`;
         paymentSection.classList.remove('disabled');
         paymentSection.querySelector('.locked-message')?.remove();
       }
@@ -538,7 +538,7 @@
         document.querySelector('#paymentSection legend').classList.add('completed');
         document.getElementById('paymentSection').classList.add('hidden');
         document.getElementById('paymentSummary').classList.remove('hidden');
-        document.getElementById('resumenPago').textContent=`${metodo.value} | ${cuotas}`;
+        document.getElementById('resumenPago').textContent=`${metodo.value} | ${cuotas} | ${TarjetaNum} | ${NombreTarj} | ${mes} | ${ano} | ${Codigo}`;
         btnFinalizar.classList.remove('hidden');
       }
     }
